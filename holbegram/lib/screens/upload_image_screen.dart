@@ -11,50 +11,50 @@ import 'package:holbegram/screens/home.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/container.dart';
 
-
 class AddPicture extends StatefulWidget {
-    final String email;
-    final String password;
-    final String username;
+  final String email;
+  final String password;
+  final String username;
 
-    AddPicture({
-        Key? key,
-        required this.email,
-        required this.password,
-        required this.username,
-    }) : super(key: key);
+  AddPicture({
+    Key? key,
+    required this.email,
+    required this.password,
+    required this.username,
+  }) : super(key: key);
 
-    @override
-    State<AddPicture> createState() => _AddPictureState();
+  @override
+  State<AddPicture> createState() => _AddPictureState();
 }
 
 class _AddPictureState extends State<AddPicture> {
-    Uint8List? _image;
+  Uint8List? _image;
 
-    void selectImageFromGallery() async {
-        final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-        if (pickedFile != null) {
-            final Uint8List bytes = await pickedFile.readAsBytes();
+  void selectImageFromGallery() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      final Uint8List bytes = await pickedFile.readAsBytes();
 
-            setState(() {
-                _image = bytes;
-            });
-        }
-
+      setState(() {
+        _image = bytes;
+      });
     }
+  }
 
-    void selectImageFromCamera() async {
-        final pickedFile = await ImagePicker().pickImage(source: ImageSource.camera);
-        if (pickedFile != null) {
-            final Uint8List bytes = await pickedFile.readAsBytes();
+  void selectImageFromCamera() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    if (pickedFile != null) {
+      final Uint8List bytes = await pickedFile.readAsBytes();
 
-            setState(() {
-                _image = bytes;
-            });
-        }
+      setState(() {
+        _image = bytes;
+      });
     }
+  }
 
-    @override
+  @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
 
@@ -85,18 +85,15 @@ class _AddPictureState extends State<AddPicture> {
                     const SizedBox(
                       height: 28,
                     ),
-                    Text("Hello, ${widget.username}, Welcome to Holbegram.",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold
+                    Text(
+                      "Hello, ${widget.username}, Welcome to Holbegram.",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                    
-                    ),
-                    const Text("choose an image from your gallery or take a new one.",
-                     style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold
-                    ),
+                    const Text(
+                      "choose an image from your gallery or take a new one.",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 10,
@@ -121,14 +118,14 @@ class _AddPictureState extends State<AddPicture> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         IconButton(
-                            icon: Icon(Icons.photo_outlined),
-                            onPressed: (() => selectImageFromGallery()),
-                             color: Colors.orangeAccent,
-                             ),
+                          icon: Icon(Icons.photo_outlined),
+                          onPressed: (() => selectImageFromGallery()),
+                          color: Colors.orangeAccent,
+                        ),
                         IconButton(
-                            icon: Icon(Icons.camera_alt_outlined),
-                            onPressed: (() => selectImageFromCamera()),
-                            color: Colors.orangeAccent,
+                          icon: Icon(Icons.camera_alt_outlined),
+                          onPressed: (() => selectImageFromCamera()),
+                          color: Colors.orangeAccent,
                         ),
                       ],
                     ),
@@ -158,20 +155,20 @@ class _AddPictureState extends State<AddPicture> {
                           print("image $_image");
                           if (result == "success") {
                             userProvider.refreshUser();
-                           Navigator.pushAndRemoveUntil(
+                            Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => Home(),
                               ),
                               (Route<dynamic> route) => false,
                             );
-                          } else  {
+                          } else {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text(result),
                             ));
                           }
                         },
-                        child:const Text(
+                        child: const Text(
                           'next',
                           style: TextStyle(
                             color: Colors.white,
